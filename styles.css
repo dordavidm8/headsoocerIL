@@ -25,12 +25,15 @@ body {
     radial-gradient(circle at top, rgba(255, 183, 3, 0.18), transparent 26%),
     radial-gradient(circle at 20% 20%, rgba(92, 200, 255, 0.16), transparent 20%),
     linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+  overflow: hidden;
 }
 
 .app-shell {
   width: min(100vw - 32px, 1800px);
   margin: 0 auto;
-  padding: 24px 0 32px;
+  padding: 16px 0;
+  min-height: 100vh;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
@@ -38,7 +41,8 @@ body {
 }
 
 .app-shell.game-layout {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+  align-items: stretch;
 }
 
 .hero-panel,
@@ -52,10 +56,15 @@ body {
 
 .hero-panel {
   padding: 24px;
+  min-height: calc(100vh - 32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .arena-panel {
   padding: 18px;
+  min-height: calc(100vh - 32px);
 }
 
 .screen-card {
@@ -64,6 +73,9 @@ body {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
   border: 1px solid rgba(255, 255, 255, 0.08);
   width: 100%;
+  max-width: 1480px;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .screen-card + .screen-card {
@@ -81,6 +93,7 @@ body {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   font-size: 0.82rem;
+  text-align: center;
 }
 
 h1,
@@ -122,6 +135,7 @@ h1 {
   padding: 14px;
   background: rgba(7, 20, 35, 0.76);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
 }
 
 .wide-btn {
@@ -284,6 +298,7 @@ button:hover {
   gap: 16px;
   align-items: start;
   margin-bottom: 16px;
+  flex: 0 0 auto;
 }
 
 .arena-scoreboard {
@@ -346,22 +361,73 @@ kbd {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: #091725;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 canvas {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.app-shell.game-layout .hero-panel,
+.app-shell.game-layout .arena-panel {
+  min-height: calc(100vh - 32px);
+  height: calc(100vh - 32px);
+}
+
+.app-shell.game-layout .hero-panel {
+  align-items: stretch;
+}
+
+.app-shell.game-layout .screen-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.app-shell.game-layout .arena-panel {
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 1180px) {
+  body {
+    overflow: auto;
+  }
+
   .app-shell,
   .app-shell.game-layout {
     grid-template-columns: 1fr;
+    min-height: auto;
+    height: auto;
   }
 
   .arena-topbar {
     grid-template-columns: 1fr;
+  }
+
+  .hero-panel,
+  .arena-panel,
+  .app-shell.game-layout .hero-panel,
+  .app-shell.game-layout .arena-panel {
+    min-height: auto;
+    height: auto;
+  }
+
+  .hero-panel {
+    display: block;
+  }
+
+  canvas {
+    height: auto;
   }
 
   .landing-preview,
@@ -374,6 +440,7 @@ canvas {
   .app-shell {
     width: min(100vw - 20px, 100%);
     padding-top: 12px;
+    padding-bottom: 20px;
   }
 
   .hero-panel,
