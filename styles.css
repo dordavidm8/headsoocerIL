@@ -400,6 +400,21 @@ canvas {
   flex-direction: column;
 }
 
+.app-shell.game-layout .arena-topbar {
+  margin-bottom: 10px;
+}
+
+.app-shell.game-layout .arena-frame {
+  height: min(62vh, calc(100vh - 210px));
+  max-height: min(62vh, calc(100vh - 210px));
+}
+
+.app-shell.game-layout canvas {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+}
+
 @media (max-width: 1180px) {
   .app-shell,
   .app-shell.game-layout {
@@ -408,6 +423,16 @@ canvas {
 
   .arena-topbar {
     grid-template-columns: 1fr;
+  }
+
+  .app-shell.game-layout .arena-frame {
+    height: auto;
+    max-height: none;
+  }
+
+  .app-shell.game-layout canvas {
+    width: 100%;
+    height: auto;
   }
 
   .hero-panel,
