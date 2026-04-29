@@ -41,7 +41,7 @@ body {
 }
 
 .app-shell.game-layout {
-  grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+  grid-template-columns: 1fr;
   align-items: stretch;
 }
 
@@ -52,6 +52,8 @@ body {
   border-radius: 28px;
   box-shadow: var(--shadow);
   backdrop-filter: blur(18px);
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .hero-panel {
@@ -74,6 +76,8 @@ body {
   max-width: 1480px;
   margin-inline: auto;
   text-align: center;
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 .screen-card + .screen-card {
@@ -82,6 +86,12 @@ body {
 
 .is-hidden {
   display: none;
+}
+
+.screen-card.is-hidden,
+.hero-panel.is-hidden,
+.arena-panel.is-hidden {
+  display: none !important;
 }
 
 .eyebrow {
@@ -134,6 +144,8 @@ h1 {
   background: rgba(7, 20, 35, 0.76);
   border: 1px solid rgba(255, 255, 255, 0.08);
   text-align: center;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .wide-btn {
@@ -297,6 +309,7 @@ button:hover {
   align-items: start;
   margin-bottom: 16px;
   flex: 0 0 auto;
+  min-width: 0;
 }
 
 .arena-scoreboard {
@@ -304,12 +317,14 @@ button:hover {
   grid-template-columns: 1fr auto 1fr;
   gap: 14px;
   align-items: center;
+  min-width: 0;
 }
 
 .arena-controls {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+  min-width: 0;
 }
 
 .score-box,
@@ -319,6 +334,8 @@ button:hover {
   padding: 14px;
   background: rgba(7, 20, 35, 0.76);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .score-box strong,
@@ -374,20 +391,8 @@ canvas {
   object-fit: contain;
 }
 
-.app-shell.game-layout .hero-panel,
 .app-shell.game-layout .arena-panel {
   min-height: calc(100vh - 32px);
-}
-
-.app-shell.game-layout .hero-panel {
-  align-items: stretch;
-}
-
-.app-shell.game-layout .screen-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .app-shell.game-layout .arena-panel {
