@@ -7,6 +7,8 @@ const beginMatchButton = document.getElementById("beginMatchButton");
 const backToLandingButton = document.getElementById("backToLandingButton");
 const backToSelectionButton = document.getElementById("backToSelectionButton");
 const resetButton = document.getElementById("resetButton");
+const inGameResetButton = document.getElementById("inGameResetButton");
+const inGameBackButton = document.getElementById("inGameBackButton");
 const singlePlayerButton = document.getElementById("singlePlayerButton");
 const twoPlayerButton = document.getElementById("twoPlayerButton");
 
@@ -184,6 +186,7 @@ function setScreen(screen) {
   gameSideScreen.classList.toggle("is-hidden", screen !== "game");
   arenaPanel.classList.toggle("is-hidden", screen !== "game");
   appShell.classList.toggle("game-layout", screen === "game");
+  document.querySelector(".hero-panel")?.classList.toggle("is-hidden", screen === "game");
   render();
 }
 
@@ -1060,6 +1063,23 @@ backToSelectionButton.addEventListener("click", () => {
 });
 
 resetButton.addEventListener("click", () => {
+  stopGame();
+  resetMatch();
+  running = true;
+  lastTimestamp = 0;
+  if (animationFrame) {
+    cancelAnimationFrame(animationFrame);
+  }
+  animationFrame = requestAnimationFrame(loop);
+});
+
+inGameBackButton.addEventListener("click", () => {
+  stopGame();
+  resetMatch();
+  setScreen("select");
+});
+
+inGameResetButton.addEventListener("click", () => {
   stopGame();
   resetMatch();
   running = true;
