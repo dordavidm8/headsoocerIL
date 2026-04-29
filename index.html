@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HeadSoccer Arena</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero-panel">
+        <p class="eyebrow">Arcade Soccer</p>
+        <h1>HeadSoccer</h1>
+        <p class="intro">
+          משחק ראש-בראש כאוטי עם דמויות מתוך האטלס שלך, מצב שחקן נגד מחשב,
+          סאונד חי, אפקטי גול וזירה מלאה.
+        </p>
+
+        <div class="setup-card">
+          <div class="mode-row">
+            <button id="singlePlayerButton" class="toggle-btn is-active">
+              שחקן נגד מחשב
+            </button>
+            <button id="twoPlayerButton" class="toggle-btn">
+              שני שחקנים
+            </button>
+          </div>
+
+          <div class="selection-block">
+            <div class="selection-header">
+              <h2>בחירת דמות לשחקן 1</h2>
+              <span id="leftCharacterName" class="picked-name"></span>
+            </div>
+            <div id="leftCharacterGrid" class="character-grid"></div>
+          </div>
+
+          <div class="selection-block">
+            <div class="selection-header">
+              <h2>בחירת דמות לשחקן 2</h2>
+              <span id="rightCharacterName" class="picked-name"></span>
+            </div>
+            <div id="rightCharacterGrid" class="character-grid"></div>
+          </div>
+
+          <div class="cta-row">
+            <button id="startButton" class="primary-btn">התחל משחק</button>
+            <button id="resetButton" class="ghost-btn">איפוס</button>
+          </div>
+
+          <p id="statusText" class="status-text">
+            בחר דמויות ומצב משחק, ואז פתח את הזירה.
+          </p>
+        </div>
+
+        <div class="hud-card">
+          <div class="score-row">
+            <div class="score-box score-left">
+              <span class="score-label" id="leftHudLabel">שחקן 1</span>
+              <strong id="leftScore">0</strong>
+            </div>
+            <div class="timer-box">
+              <span>זמן</span>
+              <strong id="matchTimer">90</strong>
+            </div>
+            <div class="score-box score-right">
+              <span class="score-label" id="rightHudLabel">מחשב</span>
+              <strong id="rightScore">0</strong>
+            </div>
+          </div>
+
+          <div class="controls-grid">
+            <div class="controls-card">
+              <h2>שליטה שחקן 1</h2>
+              <p><kbd>A</kbd> שמאלה</p>
+              <p><kbd>D</kbd> ימינה</p>
+              <p><kbd>W</kbd> קפיצה</p>
+              <p><kbd>S</kbd> בעיטה</p>
+            </div>
+
+            <div class="controls-card">
+              <h2>שליטה צד ימין</h2>
+              <p id="rightControlsLine1"><kbd>←</kbd> שמאלה</p>
+              <p id="rightControlsLine2"><kbd>→</kbd> ימינה</p>
+              <p id="rightControlsLine3"><kbd>↑</kbd> קפיצה</p>
+              <p id="rightControlsLine4"><kbd>↓</kbd> בעיטה</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="arena-panel">
+        <div class="arena-frame">
+          <canvas
+            id="gameCanvas"
+            width="1100"
+            height="620"
+            aria-label="משחק HeadSoccer"
+          ></canvas>
+        </div>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
