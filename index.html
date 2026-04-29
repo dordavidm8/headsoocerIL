@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HeadSoccer Arena</title>
+    <title>Knesset Cup</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,16 +13,29 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="app-shell">
+    <main id="appShell" class="app-shell">
       <section class="hero-panel">
-        <p class="eyebrow">Arcade Soccer</p>
-        <h1>HeadSoccer</h1>
-        <p class="intro">
-          משחק ראש-בראש כאוטי עם דמויות מתוך האטלס שלך, מצב שחקן נגד מחשב,
-          סאונד חי, אפקטי גול וזירה מלאה.
-        </p>
+        <div id="landingScreen" class="screen-card">
+          <p class="eyebrow">Arcade Soccer</p>
+          <h1>Knesset Cup</h1>
+          <p class="intro">
+            זירת כדורגל כאוטית עם ראשים ענקיים, דמויות מהאטלס שלך, גולים,
+            סאונד, מחשב נגד שחקן וקרבות מקומיים.
+          </p>
+          <div class="landing-preview">
+            <div class="landing-badge">⚽ משחק מלא בדפדפן</div>
+            <div class="landing-badge">🎮 קרב מקומי או נגד מחשב</div>
+            <div class="landing-badge">🔥 גולים, חלקיקים וסאונד</div>
+          </div>
+          <button id="continueButton" class="primary-btn wide-btn">
+            עבור לבחירת שחקנים
+          </button>
+        </div>
 
-        <div class="setup-card">
+        <div id="selectScreen" class="screen-card is-hidden">
+          <p class="eyebrow">Team Draft</p>
+          <h2 class="screen-title">בחירת מצב ודמויות</h2>
+
           <div class="mode-row">
             <button id="singlePlayerButton" class="toggle-btn is-active">
               שחקן נגד מחשב
@@ -34,7 +47,7 @@
 
           <div class="selection-block">
             <div class="selection-header">
-              <h2>בחירת דמות לשחקן 1</h2>
+              <h3>שחקן 1</h3>
               <span id="leftCharacterName" class="picked-name"></span>
             </div>
             <div id="leftCharacterGrid" class="character-grid"></div>
@@ -42,26 +55,53 @@
 
           <div class="selection-block">
             <div class="selection-header">
-              <h2>בחירת דמות לשחקן 2</h2>
+              <h3>צד ימין</h3>
               <span id="rightCharacterName" class="picked-name"></span>
             </div>
             <div id="rightCharacterGrid" class="character-grid"></div>
           </div>
 
           <div class="cta-row">
-            <button id="startButton" class="primary-btn">התחל משחק</button>
-            <button id="resetButton" class="ghost-btn">איפוס</button>
+            <button id="beginMatchButton" class="primary-btn">התחל משחק</button>
+            <button id="backToLandingButton" class="ghost-btn">חזור</button>
           </div>
 
-          <p id="statusText" class="status-text">
+          <p id="selectStatusText" class="status-text">
             בחר דמויות ומצב משחק, ואז פתח את הזירה.
           </p>
         </div>
 
-        <div class="hud-card">
-          <div class="score-row">
+        <div id="gameSideScreen" class="screen-card is-hidden">
+          <p class="eyebrow">Match Live</p>
+          <h2 class="screen-title">המשחק פעיל</h2>
+
+          <div class="game-summary">
+            <div class="mini-card">
+              <span>שמאל</span>
+              <strong id="leftHudLabel">שחקן 1</strong>
+            </div>
+            <div class="mini-card">
+              <span>ימין</span>
+              <strong id="rightHudLabel">מחשב</strong>
+            </div>
+          </div>
+
+          <div class="cta-row">
+            <button id="resetButton" class="primary-btn">איפוס משחק</button>
+            <button id="backToSelectionButton" class="ghost-btn">חזור לבחירה</button>
+          </div>
+
+          <p id="gameStatusText" class="status-text">
+            המשחק מוכן. לחץ איפוס אם אתה רוצה לפתוח סיבוב חדש.
+          </p>
+        </div>
+      </section>
+
+      <section id="arenaPanel" class="arena-panel is-hidden">
+        <div class="arena-topbar">
+          <div class="arena-scoreboard">
             <div class="score-box score-left">
-              <span class="score-label" id="leftHudLabel">שחקן 1</span>
+              <span class="score-label">שמאל</span>
               <strong id="leftScore">0</strong>
             </div>
             <div class="timer-box">
@@ -69,38 +109,36 @@
               <strong id="matchTimer">90</strong>
             </div>
             <div class="score-box score-right">
-              <span class="score-label" id="rightHudLabel">מחשב</span>
+              <span class="score-label">ימין</span>
               <strong id="rightScore">0</strong>
             </div>
           </div>
 
-          <div class="controls-grid">
+          <div class="arena-controls">
             <div class="controls-card">
-              <h2>שליטה שחקן 1</h2>
-              <p><kbd>A</kbd> שמאלה</p>
-              <p><kbd>D</kbd> ימינה</p>
-              <p><kbd>W</kbd> קפיצה</p>
-              <p><kbd>S</kbd> בעיטה</p>
+              <h3>שליטה שמאל</h3>
+              <p id="leftControlsLine1"><kbd>←</kbd> שמאלה</p>
+              <p id="leftControlsLine2"><kbd>→</kbd> ימינה</p>
+              <p id="leftControlsLine3"><kbd>↑</kbd> קפיצה</p>
+              <p id="leftControlsLine4"><kbd>Shift</kbd> בעיטה</p>
             </div>
 
             <div class="controls-card">
-              <h2>שליטה צד ימין</h2>
-              <p id="rightControlsLine1"><kbd>←</kbd> שמאלה</p>
-              <p id="rightControlsLine2"><kbd>→</kbd> ימינה</p>
-              <p id="rightControlsLine3"><kbd>↑</kbd> קפיצה</p>
-              <p id="rightControlsLine4"><kbd>↓</kbd> בעיטה</p>
+              <h3>שליטה ימין</h3>
+              <p id="rightControlsLine1"><kbd>J</kbd> שמאלה</p>
+              <p id="rightControlsLine2"><kbd>L</kbd> ימינה</p>
+              <p id="rightControlsLine3"><kbd>I</kbd> קפיצה</p>
+              <p id="rightControlsLine4"><kbd>K</kbd> בעיטה</p>
             </div>
           </div>
         </div>
-      </section>
 
-      <section class="arena-panel">
         <div class="arena-frame">
           <canvas
             id="gameCanvas"
             width="1100"
             height="620"
-            aria-label="משחק HeadSoccer"
+            aria-label="משחק Knesset Cup"
           ></canvas>
         </div>
       </section>
